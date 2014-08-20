@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Does transmission affect mileage (Using mtcars Dataset)</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Does transmission affect mileage (Using mtcars Dataset)">
+  <meta name="author" content="Murtuza Attarwala">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/github.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+<link rel=stylesheet href="./assets/css/smallcode.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Does transmission affect mileage (Using mtcars Dataset)</h1>
+    <h2>Coursera Data Products Project</h2>
+    <p>Murtuza Attarwala<br/>Data Insight Provider</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Executive Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This application looks at the dataset for 32 different car models (1973-74) from <em>Motor Trend</em> magazine and attempts to answer the question  </p>
+
+<ul>
+<li>Does automatic/manual transmission have any impact on mpg</li>
+</ul>
+
+<p>By looking at the data, we see that it has normal distribution, so we use linear regression to attempt to answer this question  </p>
+
+<p>The application computes <strong>lm(mpg ~ am, data=mtcars)</strong> model by default, and allows users to add other predictor variables, like weight, number of cylinders and horse power alongwith transmission(am)  </p>
+
+<p>Users can compare the default model with the model computed using additional predictors, which will give them insight into our question, as to whether transmission really does affect mpg or are other factors more important than transmission</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>How to use the app</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>The app has four tabs</p>
+
+<ul>
+<li>An about tab briefly describing the app</li>
+<li>A model summary tab, which shows the summary of the model</li>
+<li>A model comparison tab, which let&#39;s users compare the model with the default model using anova function</li>
+<li>The residuals plot tab, which plots the residuals vs the predicted values</li>
+</ul></li>
+<li><p>On the left panel is the set of predictors that the user can select to add to the model, alongside default predictor of transmission(am)</p></li>
+<li><p>User can look at the p-value in the model comparison tab, to see if the new model is significantly better than the default</p></li>
+<li><p>By looking at the residuals plot the user can verify if there is any heteroskedasticity, and whether linear model will work well for the data or not</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="smallcode" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A quick look at the fuel efficiency based on on transmission alone suggests that on average manual transmission gives 7 more miles per gallon</li>
+</ul>
+
+<pre><code class="r">fit1 &lt;- lm(mpg~am, data=mtcars)
+summary(fit1)$coeff
+##             Estimate Std. Error t value  Pr(&gt;|t|)
+## (Intercept)   17.147      1.125  15.247 1.134e-15
+## am             7.245      1.764   4.106 2.850e-04
+</code></pre>
+
+<ul>
+<li>Now let&#39;s see what happens when we add other confounding variables like wt, which we suspect can impact mpg</li>
+</ul>
+
+<pre><code class="r">fit2 &lt;- lm(mpg~am+wt, data=mtcars)
+summary(fit2)$coeff
+##             Estimate Std. Error  t value  Pr(&gt;|t|)
+## (Intercept) 37.32155     3.0546 12.21799 5.843e-13
+## am          -0.02362     1.5456 -0.01528 9.879e-01
+## wt          -5.35281     0.7882 -6.79081 1.867e-07
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example Contd.</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>We can see that each 1000 pounds of wt decreases the mpg by about 5 miles, and the higher p-value suggests that there is no evidence that transmission type affects mileage, other things being equal</p></li>
+<li><p>User can play with different confounding variables to see what affect it has on mileage</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="thank-you-slide segue nobackground" id="slide-5">
+<article class="flexbox vleft auto-fadein">
+<h2>Thank You</h2>
+
+</article>
+
+<p class="auto-fadein" data-config-contact="">
+</p>
+</slide>
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Executive Summary'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='How to use the app'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example Contd.'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Thank You'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
