@@ -65,8 +65,3 @@ summary(fit2)$coeff
 
 - User can play with different confounding variables to see what affect it has on mileage
 
---- {
- tpl: thankyou
-}
-
-## Thank You
